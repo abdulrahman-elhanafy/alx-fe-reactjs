@@ -10,9 +10,9 @@ function App() {
             <Header />
             <MainContent />
             <UserProfile
-                name="Abdulrahman"
-                age={20}
-                bio="A passionate learner exploring React with ALX 🚀"
+                name="Alice"
+                age={25}
+                bio="Loves hiking and photography"
             />
             <Footer />
         </div>
