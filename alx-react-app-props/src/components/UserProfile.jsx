@@ -1,4 +1,9 @@
-function UserProfile(props) {
+import { useContext } from "react";
+import UserContext from "../contexts/UserContext";
+
+function UserProfile() {
+    const user = useContext(UserContext);
+
     return (
         <div
             style={{
@@ -11,12 +16,12 @@ function UserProfile(props) {
                 backgroundColor: "#f9f9f9",
                 color: "black",
             }}>
-            <h2>{props.name}</h2>
+            <h2>{user.name}</h2>
             <p>
-                <strong>Age:</strong> {props.age}
+                <strong>Age:</strong> {user.age}
             </p>
             <p>
-                <strong>Bio:</strong> {props.bio}
+                <strong>Bio:</strong> {user.bio}
             </p>
         </div>
     );
