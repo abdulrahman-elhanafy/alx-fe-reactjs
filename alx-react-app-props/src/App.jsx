@@ -1,6 +1,6 @@
 import "./App.css";
 import UserContext from "./UserContext";
-import UserDetails from "./components/UserDetails";
+import UserProfile from "./components/UserProfile";
 
 function App() {
     const user = {
@@ -12,7 +12,7 @@ function App() {
     return (
         <UserContext.Provider value={user}>
             <div>
-                <UserDetails />
+                <UserProfile />
             </div>
         </UserContext.Provider>
     );
