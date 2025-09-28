@@ -5,47 +5,70 @@ const useRecipeStore = create(
     persist(
         (set, get) => ({
             recipes: [],
-            searchTerm: "",
+            favorites: [], // 👈 المفضلات
+            recommendations: [], // 👈 التوصيات
 
-            setSearchTerm: (term) => set({ searchTerm: term }),
-
-            addRecipe: (newRecipe) =>
-                set((state) => ({ recipes: [...state.recipes, newRecipe] })),
-
-            setRecipes: (recipes) => set({ recipes }),
-
-            updateRecipe: (id, patch) =>
+            // إضافة وصفة جديدة
+            addRecipe: (title, description) =>
                 set((state) => ({
-                    recipes: state.recipes.map((r) =>
-                        r.id === id ? { ...r, ...patch } : r
+                    recipes: [
+                        ...state.recipes,
+                        { id: Date.now(), title, description },
+                    ],
+                })),
+
+            // تعديل وصفة
+            updateRecipe: (id, newTitle, newDescription) =>
+                set((state) => ({
+                    recipes: state.recipes.map((recipe) =>
+                        recipe.id === id
+                            ? {
+                                  ...recipe,
+                                  title: newTitle,
+                                  description: newDescription,
+                              }
+                            : recipe
                     ),
                 })),
 
+            // حذف وصفة
             deleteRecipe: (id) =>
                 set((state) => ({
-                    recipes: state.recipes.filter((r) => r.id !== id),
+                    recipes: state.recipes.filter((recipe) => recipe.id !== id),
+                    favorites: state.favorites.filter((favId) => favId !== id),
                 })),
 
-            findById: (id) => get().recipes.find((r) => r.id === id),
+            // ---------- Favorites ----------
+            addFavorite: (id) =>
+                set((state) => ({
+                    favorites: state.favorites.includes(id)
+                        ? state.favorites
+                        : [...state.favorites, id],
+                })),
 
-            filteredRecipes: () => {
-                const { recipes, searchTerm } = get();
-                if (!searchTerm) return recipes;
-                return recipes.filter(
-                    (r) =>
-                        r.title
-                            .toLowerCase()
-                            .includes(searchTerm.toLowerCase()) ||
-                        r.description
-                            .toLowerCase()
-                            .includes(searchTerm.toLowerCase())
-                );
+            removeFavorite: (id) =>
+                set((state) => ({
+                    favorites: state.favorites.filter((favId) => favId !== id),
+                })),
+
+            toggleFavorite: (id) => {
+                const { favorites, addFavorite, removeFavorite } = get();
+                if (favorites.includes(id)) {
+                    removeFavorite(id);
+                } else {
+                    addFavorite(id);
+                }
+            },
+
+            // ---------- Recommendations ----------
+            generateRecommendations: () => {
+                const { recipes, favorites } = get();
+                // ببساطة: رجّع وصفات مش مفضلة
+                const recs = recipes.filter((r) => !favorites.includes(r.id));
+                set({ recommendations: recs.slice(0, 3) }); // أول 3 بس
             },
         }),
-        {
-            name: "recipe-storage",
-            getStorage: () => localStorage,
-        }
+        { name: "recipe-store" }
     )
 );
 
