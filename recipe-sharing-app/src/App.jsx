@@ -10,12 +10,14 @@ import AddRecipeForm from "./components/AddRecipeForm";
 import RecipeList from "./components/RecipeList";
 import RecipeDetails from "./components/RecipeDetails";
 import EditRecipeForm from "./components/EditRecipeForm";
+import SearchBar from "./components/SearchBar"; // ← أضف الاستيراد الجديد
 
 function Home() {
     return (
         <>
             <AddRecipeForm />
             <hr className="my-4" />
+            <SearchBar /> {/* ← هنا ضفنا SearchBar */}
             <RecipeList />
         </>
     );
