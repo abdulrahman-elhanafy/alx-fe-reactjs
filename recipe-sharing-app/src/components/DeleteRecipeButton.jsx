@@ -1,13 +1,15 @@
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import useRecipeStore from "./recipeStore";
 
-export default function DeleteRecipeButton({ id, onDeleted }) {
+function DeleteRecipeButton({ id }) {
     const deleteRecipe = useRecipeStore((state) => state.deleteRecipe);
+    const navigate = useNavigate();
 
-    const handle = () => {
-        if (!confirm("Delete this recipe?")) return;
+    const handleDelete = () => {
         try {
             deleteRecipe(id);
-            if (onDeleted) onDeleted();
+            navigate("/"); // 👈 بعد الحذف بيرجع للـ Home
         } catch (error) {
             alert("Failed to delete");
             console.error(error);
@@ -16,9 +18,18 @@ export default function DeleteRecipeButton({ id, onDeleted }) {
 
     return (
         <button
-            onClick={handle}
-            className="px-3 py-1 bg-red-600 text-white rounded">
+            onClick={handleDelete}
+            style={{
+                background: "red",
+                color: "white",
+                padding: "6px 12px",
+                borderRadius: "6px",
+                border: "none",
+                cursor: "pointer",
+            }}>
             Delete
         </button>
     );
 }
+
+export default DeleteRecipeButton;
