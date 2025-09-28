@@ -12,8 +12,8 @@ export default function EditRecipeForm({ recipeId }) {
 
     if (!recipe) return <p>Recipe not found.</p>;
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    const handleSubmit = (event) => {
+        event.preventDefault();
         updateRecipe(recipeId, { title, description });
         navigate(`/recipe/${recipeId}`);
     };
