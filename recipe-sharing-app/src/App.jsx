@@ -10,14 +10,14 @@ import AddRecipeForm from "./components/AddRecipeForm";
 import RecipeList from "./components/RecipeList";
 import RecipeDetails from "./components/RecipeDetails";
 import EditRecipeForm from "./components/EditRecipeForm";
-import SearchBar from "./components/SearchBar"; // ← أضف الاستيراد الجديد
+import SearchBar from "./components/SearchBar";
 
 function Home() {
     return (
         <>
             <AddRecipeForm />
             <hr className="my-4" />
-            <SearchBar /> {/* ← هنا ضفنا SearchBar */}
+            <SearchBar />
             <RecipeList />
         </>
     );
@@ -49,7 +49,6 @@ export default function App() {
 }
 
 function EditRoute() {
-    // grabs id from path and pass to EditRecipeForm
     const { id } = useParams();
     const recipeId = Number(id);
     return <EditRecipeForm recipeId={recipeId} />;
