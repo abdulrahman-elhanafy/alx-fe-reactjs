@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import useRecipeStore from "../store/recipeStore";
+import useRecipeStore from "./recipeStore";
 
 export default function RecipeDetails() {
     const { id } = useParams();

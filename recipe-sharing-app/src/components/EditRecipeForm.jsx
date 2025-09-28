@@ -1,5 +1,5 @@
 import { useState } from "react";
-import useRecipeStore from "../store/recipeStore";
+import useRecipeStore from "./recipeStore";
 import { useNavigate } from "react-router-dom";
 
 export default function EditRecipeForm({ recipeId }) {
