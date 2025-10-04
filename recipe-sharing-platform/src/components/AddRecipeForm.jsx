@@ -6,7 +6,7 @@ export default function AddRecipeForm({ setRecipes }) {
     const [summary, setSummary] = useState("");
     const [image, setImage] = useState("");
     const [ingredients, setIngredients] = useState([""]);
-    const [instructions, setInstructions] = useState([""]);
+    const [steps, setSteps] = useState([""]); // ✅ رجعنا steps
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {
@@ -28,7 +28,7 @@ export default function AddRecipeForm({ setRecipes }) {
             summary,
             image,
             ingredients: ingredients.filter((i) => i.trim() !== ""),
-            instructions: instructions.filter((s) => s.trim() !== ""),
+            steps: steps.filter((s) => s.trim() !== ""), // ✅ steps بدل instructions
         };
 
         setRecipes((prev) => [...prev, newRecipe]);
@@ -98,15 +98,16 @@ export default function AddRecipeForm({ setRecipes }) {
             </div>
 
             <div className="mb-4">
-                <label className="block mb-1 font-medium">Instructions</label>
-                {instructions.map((step, i) => (
+                <label className="block mb-1 font-medium">Steps</label>{" "}
+                {/* ✅ label steps */}
+                {steps.map((step, i) => (
                     <textarea
                         key={i}
                         value={step}
                         onChange={(e) => {
-                            const copy = [...instructions];
+                            const copy = [...steps];
                             copy[i] = e.target.value;
-                            setInstructions(copy);
+                            setSteps(copy);
                         }}
                         className="w-full border rounded p-2 mb-2"
                         placeholder={`Step ${i + 1}`}
@@ -114,7 +115,7 @@ export default function AddRecipeForm({ setRecipes }) {
                 ))}
                 <button
                     type="button"
-                    onClick={() => setInstructions([...instructions, ""])}
+                    onClick={() => setSteps([...steps, ""])}
                     className="px-3 py-1 bg-green-500 text-white rounded">
                     + Add Step
                 </button>
