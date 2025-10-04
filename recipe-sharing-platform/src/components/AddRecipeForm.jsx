@@ -54,108 +54,41 @@ export default function AddRecipeForm({ setRecipes }) {
             className="max-w-2xl mx-auto bg-white shadow p-6 rounded-lg">
             <h1 className="text-2xl font-bold mb-4">Add New Recipe</h1>
 
-            {/* Title */}
-            <div className="mb-4">
-                <label className="block mb-1 font-medium">Title</label>
-                <input
-                    type="text"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                    className="w-full border rounded p-2"
-                    placeholder="Recipe title"
-                />
-                {errors.title && (
-                    <p className="text-red-500 text-sm">{errors.title}</p>
-                )}
-            </div>
-
-            {/* Summary */}
-            <div className="mb-4">
-                <label className="block mb-1 font-medium">Summary</label>
-                <textarea
-                    value={summary}
-                    onChange={(e) => setSummary(e.target.value)}
-                    className="w-full border rounded p-2"
-                    placeholder="Short description"
-                />
-                {errors.summary && (
-                    <p className="text-red-500 text-sm">{errors.summary}</p>
-                )}
-            </div>
-
-            {/* Image */}
-            <div className="mb-4">
-                <label className="block mb-1 font-medium">Image URL</label>
-                <input
-                    type="text"
-                    value={image}
-                    onChange={(e) => setImage(e.target.value)}
-                    className="w-full border rounded p-2"
-                    placeholder="https://example.com/image.jpg"
-                />
-                {errors.image && (
-                    <p className="text-red-500 text-sm">{errors.image}</p>
-                )}
-            </div>
-
-            {/* Ingredients */}
-            <div className="mb-4">
-                <label className="block mb-1 font-medium">Ingredients</label>
-                {ingredients.map((ing, i) => (
+            {/* Title + Summary جنب بعض من أول md */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <div>
+                    <label className="block mb-1 font-medium">Title</label>
                     <input
-                        key={i}
                         type="text"
-                        value={ing}
-                        onChange={(e) => {
-                            const copy = [...ingredients];
-                            copy[i] = e.target.value;
-                            setIngredients(copy);
-                        }}
-                        className="w-full border rounded p-2 mb-2"
-                        placeholder={`Ingredient ${i + 1}`}
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                        className="w-full border rounded p-2"
+                        placeholder="Recipe title"
                     />
-                ))}
-                <button
-                    type="button"
-                    onClick={() => setIngredients([...ingredients, ""])}
-                    className="px-3 py-1 bg-green-500 text-white rounded">
-                    + Add Ingredient
-                </button>
-                {errors.ingredients && (
-                    <p className="text-red-500 text-sm">{errors.ingredients}</p>
-                )}
+                    {errors.title && (
+                        <p className="text-red-500 text-sm">{errors.title}</p>
+                    )}
+                </div>
+
+                <div>
+                    <label className="block mb-1 font-medium">Summary</label>
+                    <textarea
+                        value={summary}
+                        onChange={(e) => setSummary(e.target.value)}
+                        className="w-full border rounded p-2 h-[42px]"
+                        placeholder="Short description"
+                    />
+                    {errors.summary && (
+                        <p className="text-red-500 text-sm">{errors.summary}</p>
+                    )}
+                </div>
             </div>
 
-            {/* Steps */}
-            <div className="mb-4">
-                <label className="block mb-1 font-medium">Steps</label>
-                {steps.map((step, i) => (
-                    <textarea
-                        key={i}
-                        value={step}
-                        onChange={(e) => {
-                            const copy = [...steps];
-                            copy[i] = e.target.value;
-                            setSteps(copy);
-                        }}
-                        className="w-full border rounded p-2 mb-2"
-                        placeholder={`Step ${i + 1}`}
-                    />
-                ))}
-                <button
-                    type="button"
-                    onClick={() => setSteps([...steps, ""])}
-                    className="px-3 py-1 bg-green-500 text-white rounded">
-                    + Add Step
-                </button>
-                {errors.steps && (
-                    <p className="text-red-500 text-sm">{errors.steps}</p>
-                )}
-            </div>
+            {/* باقي الفورم زي ما هو */}
 
             <button
                 type="submit"
-                className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+                className="w-full md:w-auto bg-blue-600 text-white py-2 px-6 rounded hover:bg-blue-700">
                 Save Recipe
             </button>
         </form>
