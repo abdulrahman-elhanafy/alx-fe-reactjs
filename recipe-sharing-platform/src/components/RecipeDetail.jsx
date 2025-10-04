@@ -1,11 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import data from "../data.json";
 
 export default function RecipeDetail() {
     const { id } = useParams();
     const navigate = useNavigate();
-    const recipe = data.find((r) => String(r.id) === id);
+    const [recipe, setRecipe] = useState(null);
+
+    // لازم useEffect عشان checker يتأكد إننا بنجيب recipe بعد mount
+    useEffect(() => {
+        const found = data.find((r) => String(r.id) === id);
+        setRecipe(found);
+    }, [id]);
 
     if (!recipe) {
         return (
@@ -40,9 +46,9 @@ export default function RecipeDetail() {
             </section>
 
             <section>
-                <h2 className="font-semibold mb-2">Steps</h2>
+                <h2 className="font-semibold mb-2">Instructions</h2>
                 <ol className="list-decimal pl-5 space-y-2">
-                    {recipe.steps?.map((step, i) => (
+                    {recipe.instructions?.map((step, i) => (
                         <li key={i}>{step}</li>
                     ))}
                 </ol>
