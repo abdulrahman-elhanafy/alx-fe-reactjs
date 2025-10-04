@@ -1,14 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import data from "../data.json";
 
-export default function HomePage() {
-    const [recipes, setRecipes] = useState([]);
-
-    useEffect(() => {
-        setRecipes(data);
-    }, []);
-
+export default function HomePage({ recipes }) {
     return (
         <div>
             <div className="flex items-center justify-between mb-6">
