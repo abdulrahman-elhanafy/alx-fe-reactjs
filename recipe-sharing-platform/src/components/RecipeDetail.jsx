@@ -1,10 +1,11 @@
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import data from "../data.json";
 
-export default function RecipeDetail({ recipes }) {
+export default function RecipeDetail() {
     const { id } = useParams();
     const navigate = useNavigate();
-    const recipe = recipes.find((r) => String(r.id) === id);
+    const recipe = data.find((r) => String(r.id) === id);
 
     if (!recipe) {
         return (

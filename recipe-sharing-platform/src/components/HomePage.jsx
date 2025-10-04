@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import data from "../data.json"; // لازم يبقى موجود
+import data from "../data.json";
 
 export default function HomePage() {
     const [recipes, setRecipes] = useState([]);
 
-    // أول ما الكومبوننت يركب، نحمل الداتا
     useEffect(() => {
-        // هنا بنقرأ من الملف مباشرة (مستورد فوق)
         setRecipes(data);
     }, []);
 
