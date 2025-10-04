@@ -1,7 +1,16 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import data from "../data.json"; // لازم يبقى موجود
 
-export default function HomePage({ recipes }) {
+export default function HomePage() {
+    const [recipes, setRecipes] = useState([]);
+
+    // أول ما الكومبوننت يركب، نحمل الداتا
+    useEffect(() => {
+        // هنا بنقرأ من الملف مباشرة (مستورد فوق)
+        setRecipes(data);
+    }, []);
+
     return (
         <div>
             <div className="flex items-center justify-between mb-6">
