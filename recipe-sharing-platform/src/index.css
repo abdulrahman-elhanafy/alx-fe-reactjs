@@ -1,7 +1,7 @@
-/* src/index.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Optional small helpers */
-html, body, #root { height: 100%; }
+html, body, #root {
+  height: 100%;
+}
