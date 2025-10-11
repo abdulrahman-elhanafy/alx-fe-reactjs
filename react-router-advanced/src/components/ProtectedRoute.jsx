@@ -1,12 +1,14 @@
+// src/components/ProtectedRoute.jsx
 import React from "react";
 import { Navigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext"; // أو المكان اللي عامل فيه hook الـ useAuth
 
-export default function ProtectedRoute({ isAuthenticated, children }) {
-    // لو المستخدم مش عامل تسجيل دخول → رجّعه على صفحة login
-    if (!isAuthenticated) {
-        return <Navigate to="/login" />;
+export default function ProtectedRoute({ children }) {
+    const { user } = useAuth();
+
+    if (!user) {
+        return <Navigate to="/login" replace />;
     }
 
-    // لو متسجل → رجّع الصفحة اللي المفروض يشوفها
     return children;
 }

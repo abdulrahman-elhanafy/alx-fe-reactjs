@@ -24,10 +24,10 @@ export default function App() {
                 />
 
                 <Route
-                    path="/profile/*"
+                    path="/dashboard"
                     element={
-                        <ProtectedRoute isAuthenticated={isAuthenticated}>
-                            <Profile />
+                        <ProtectedRoute>
+                            <Dashboard />
                         </ProtectedRoute>
                     }
                 />
