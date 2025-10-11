@@ -8,15 +8,15 @@ const fetchPosts = async () => {
 };
 
 export default function PostsComponent() {
-    const { data, isLoading, isError, error, isFetching } = useQuery({
+    const { data, isLoading, isError, error, isFetching, refetch } = useQuery({
         queryKey: ["posts"],
         queryFn: fetchPosts,
 
-        // 🧠 إعدادات الكاش المطلوبة:
-        cacheTime: 1000 * 60 * 10, // 10 minutes
-        staleTime: 1000 * 60 * 1, // 1 minute
-        refetchOnWindowFocus: false, // مش هيعمل refetch لما ترجع للنافذة
-        keepPreviousData: true, // بيحتفظ بالبيانات القديمة أثناء refetch
+        // 🧠 إعدادات الكاش:
+        cacheTime: 1000 * 60 * 10,
+        staleTime: 1000 * 60 * 1,
+        refetchOnWindowFocus: false,
+        keepPreviousData: true,
     });
 
     if (isLoading) return <p>Loading posts...</p>;
@@ -25,7 +25,16 @@ export default function PostsComponent() {
     return (
         <div>
             <h2 className="text-xl font-semibold mb-4">Posts</h2>
+
+            {/* 🔁 زرار لإعادة الجلب */}
+            <button
+                onClick={() => refetch()}
+                className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition mb-4">
+                {isFetching ? "Refreshing..." : "Refetch Data"}
+            </button>
+
             {isFetching && <p className="text-sm text-gray-500">Updating...</p>}
+
             <ul className="space-y-2">
                 {data.slice(0, 5).map((post) => (
                     <li key={post.id} className="p-3 border rounded-lg">
