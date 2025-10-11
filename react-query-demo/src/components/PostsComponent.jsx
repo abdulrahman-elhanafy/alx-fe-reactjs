@@ -1,4 +1,3 @@
-// src/components/PostsComponent.jsx
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 
@@ -9,9 +8,15 @@ const fetchPosts = async () => {
 };
 
 export default function PostsComponent() {
-    const { data, isLoading, isError, error } = useQuery({
+    const { data, isLoading, isError, error, isFetching } = useQuery({
         queryKey: ["posts"],
         queryFn: fetchPosts,
+
+        // 🧠 إعدادات الكاش المطلوبة:
+        cacheTime: 1000 * 60 * 10, // 10 minutes
+        staleTime: 1000 * 60 * 1, // 1 minute
+        refetchOnWindowFocus: false, // مش هيعمل refetch لما ترجع للنافذة
+        keepPreviousData: true, // بيحتفظ بالبيانات القديمة أثناء refetch
     });
 
     if (isLoading) return <p>Loading posts...</p>;
@@ -20,6 +25,7 @@ export default function PostsComponent() {
     return (
         <div>
             <h2 className="text-xl font-semibold mb-4">Posts</h2>
+            {isFetching && <p className="text-sm text-gray-500">Updating...</p>}
             <ul className="space-y-2">
                 {data.slice(0, 5).map((post) => (
                     <li key={post.id} className="p-3 border rounded-lg">
