@@ -11,6 +11,7 @@ import Profile from "./components/Profile";
 import ProfileDetails from "./components/ProfileDetails";
 import ProfileSettings from "./components/ProfileSettings";
 import Login from "./components/Login";
+import BlogPost from "./components/BlogPost"; // ✅ استيراد جديد
 
 function ProtectedRoute({ isAuthenticated, children }) {
     return isAuthenticated ? children : <Navigate to="/login" />;
@@ -32,21 +33,17 @@ export default function App() {
                     element={<Login setAuth={setIsAuthenticated} />}
                 />
 
-                {/* 🔒 Protected Route */}
                 <Route
                     path="/profile/*"
                     element={
                         <ProtectedRoute isAuthenticated={isAuthenticated}>
                             <Profile />
                         </ProtectedRoute>
-                    }>
-                    {/* 🧩 Nested Routes */}
-                    <Route path="details" element={<ProfileDetails />} />
-                    <Route path="settings" element={<ProfileSettings />} />
-                </Route>
+                    }
+                />
 
-                {/* 🌍 Dynamic Route */}
-                <Route path="/user/:username" element={<ProfileDetails />} />
+                {/* ✅ Dynamic Route */}
+                <Route path="/blog/:id" element={<BlogPost />} />
             </Routes>
         </Router>
     );
